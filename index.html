@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Placement Outreach Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="auth-section" class="center-content">
+    <div class="card login-card">
+      <h1>Placement Tracker</h1>
+      <p>Please log in to access the CRM database.</p>
+      <button id="btn-login" class="btn-primary login-btn">
+        <svg viewBox="0 0 48 48" width="20px" height="20px" style="vertical-align: middle; margin-right: 8px;"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Sign in with Google
+      </button>
+      <div id="auth-error" class="error-msg" style="display:none; margin-top: 10px;"></div>
+    </div>
+  </div>
+
+  <div id="app-section" style="display: none;">
+    <div class="header">
+      <div class="header-title">
+        <h1>Placement Outreach Tracker</h1>
+        <span class="badge">NIT Mizoram</span>
+      </div>
+      <div class="user-info">
+        <span id="user-email"></span>
+        <button id="btn-logout" class="btn-secondary">Log out</button>
+      </div>
+    </div>
+    
+    <div id="company-directory" class="card">
+      <h2>Target Companies</h2>
+      <div class="filters">
+        <label for="filter-region">Region:</label>
+        <select id="filter-region">
+          <option value="All">All</option>
+          <option value="India">India</option>
+          <option value="Global">Global</option>
+        </select>
+
+        <label for="filter-category">Category:</label>
+        <select id="filter-category">
+          <option value="All">All</option>
+          <option value="Quant">Quant</option>
+          <option value="Big Tech">Big Tech</option>
+          <option value="Services">Services</option>
+          <option value="Fintech">Fintech</option>
+        </select>
+      </div>
+      
+      <div id="company-list"></div>
+    </div>
+
+    <div id="crm-section" class="card">
+      <div class="crm-header">
+        <h2>CRM Outreach Tracker</h2>
+        <button id="btn-export-csv" class="btn-secondary">📊 Export to CSV</button>
+      </div>
+      
+      <form id="crm-form" novalidate>
+        <div class="form-row">
+          <div class="form-group half-width">
+            <label for="form-company-name">Company Name *</label>
+            <input type="text" id="form-company-name" required placeholder="e.g. Optiver">
+          </div>
+          <div class="form-group half-width">
+            <label for="form-contact-name">Contact Name *</label>
+            <input type="text" id="form-contact-name" required placeholder="e.g. John Doe">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group half-width">
+            <label for="form-email">Email</label>
+            <input type="email" id="form-email" placeholder="john@optiver.com">
+          </div>
+          <div class="form-group half-width">
+            <label for="form-linkedin-url">LinkedIn URL</label>
+            <input type="url" id="form-linkedin-url" placeholder="https://linkedin.com/in/...">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group half-width">
+            <label for="form-status">Status</label>
+            <select id="form-status">
+              <option value="To Contact">To Contact</option>
+              <option value="Emailed">Emailed</option>
+              <option value="Meeting Scheduled">Meeting Scheduled</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group full-width">
+          <label for="form-notes">Interaction Notes</label>
+          <textarea id="form-notes" rows="2" placeholder="e.g. Sent connection request on Monday."></textarea>
+        </div>
+        <button type="submit" id="btn-save-contact" class="btn-primary">Save Contact</button>
+        <div id="crm-error" class="error-msg" style="display:none;"></div>
+      </form>
+
+      <div class="crm-table-container">
+        <div class="table-header">
+          <h3>Contacts Database</h3>
+          <div class="crm-filters">
+            <label for="filter-crm-status">Filter:</label>
+            <select id="filter-crm-status">
+              <option value="All">All Statuses</option>
+              <option value="To Contact">To Contact</option>
+              <option value="Emailed">Emailed</option>
+              <option value="Meeting Scheduled">Meeting Scheduled</option>
+            </select>
+          </div>
+        </div>
+        <table id="contacts-table">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>LinkedIn</th>
+              <th>Notes</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="contacts-list">
+            <tr><td colspan="7" class="loading-text">Loading contacts...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
