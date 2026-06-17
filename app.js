@@ -47,8 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let contacts = [];
   let unsubscribeContacts = null;
 
-  // 1. Target Companies Data (Hardcoded since we don't have a backend to serve it anymore)
+  // 1. Target Companies Data
   const predefinedCompanies = [
+    // Quant & High-Frequency Trading (HFT)
     { id: 1, name: "Jane Street", category: "Quant", region: "Global" },
     { id: 2, name: "Tower Research Capital", category: "Quant", region: "Global" },
     { id: 3, name: "Optiver", category: "Quant", region: "Global" },
@@ -56,15 +57,74 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 5, name: "Quadeye", category: "Quant", region: "India" },
     { id: 6, name: "AlphaGrep", category: "Quant", region: "India" },
     { id: 7, name: "WorldQuant", category: "Quant", region: "Global" },
-    { id: 9, name: "Google", category: "Big Tech", region: "Global" },
-    { id: 10, name: "Microsoft", category: "Big Tech", region: "Global" },
-    { id: 11, name: "Amazon", category: "Big Tech", region: "Global" },
-    { id: 21, name: "LatentView Analytics", category: "Services", region: "India" },
-    { id: 26, name: "McKinsey & Co.", category: "Services", region: "Global" },
-    { id: 33, name: "Goldman Sachs", category: "Fintech", region: "Global" },
-    { id: 35, name: "J.P. Morgan", category: "Fintech", region: "Global" },
-    { id: 40, name: "Razorpay", category: "Fintech", region: "India" }
-  ]; // Condensed list for brevity
+    { id: 8, name: "Trexquant", category: "Quant", region: "Global" },
+    { id: 9, name: "Hudson River Trading (HRT)", category: "Quant", region: "Global" },
+    { id: 10, name: "D.E. Shaw", category: "Quant", region: "Global" },
+    { id: 11, name: "Two Sigma", category: "Quant", region: "Global" },
+    { id: 12, name: "Citadel", category: "Quant", region: "Global" },
+    { id: 13, name: "APT Portfolio", category: "Quant", region: "India" },
+    { id: 14, name: "NK Securities", category: "Quant", region: "India" },
+
+    // Big Tech & Unicorns
+    { id: 15, name: "Google", category: "Big Tech", region: "Global" },
+    { id: 16, name: "Microsoft", category: "Big Tech", region: "Global" },
+    { id: 17, name: "Amazon", category: "Big Tech", region: "Global" },
+    { id: 18, name: "Apple", category: "Big Tech", region: "Global" },
+    { id: 19, name: "Meta", category: "Big Tech", region: "Global" },
+    { id: 20, name: "Uber", category: "Big Tech", region: "Global" },
+    { id: 21, name: "Atlassian", category: "Big Tech", region: "Global" },
+    { id: 22, name: "Rubrik", category: "Big Tech", region: "Global" },
+    { id: 23, name: "Sprinklr", category: "Big Tech", region: "India" },
+    { id: 24, name: "Arcesium", category: "Big Tech", region: "India" },
+    { id: 25, name: "Cisco", category: "Big Tech", region: "Global" },
+    { id: 26, name: "Adobe", category: "Big Tech", region: "Global" },
+    { id: 27, name: "Salesforce", category: "Big Tech", region: "Global" },
+    { id: 28, name: "Intuit", category: "Big Tech", region: "Global" },
+    { id: 29, name: "LinkedIn", category: "Big Tech", region: "Global" },
+    { id: 30, name: "NVIDIA", category: "Big Tech", region: "Global" },
+    { id: 31, name: "Databricks", category: "Big Tech", region: "Global" },
+    { id: 32, name: "Snowflake", category: "Big Tech", region: "Global" },
+
+    // Indian Startups & Tech Giants
+    { id: 33, name: "Flipkart", category: "Big Tech", region: "India" },
+    { id: 34, name: "Swiggy", category: "Big Tech", region: "India" },
+    { id: 35, name: "Zomato", category: "Big Tech", region: "India" },
+    { id: 36, name: "Ola", category: "Big Tech", region: "India" },
+    { id: 37, name: "Dream11", category: "Big Tech", region: "India" },
+    { id: 38, name: "ShareChat", category: "Big Tech", region: "India" },
+    { id: 39, name: "Meesho", category: "Big Tech", region: "India" },
+    { id: 40, name: "Postman", category: "Big Tech", region: "India" },
+    { id: 41, name: "BrowserStack", category: "Big Tech", region: "India" },
+
+    // Fintech & Investment Banks
+    { id: 42, name: "Goldman Sachs", category: "Fintech", region: "Global" },
+    { id: 43, name: "Morgan Stanley", category: "Fintech", region: "Global" },
+    { id: 44, name: "J.P. Morgan", category: "Fintech", region: "Global" },
+    { id: 45, name: "Barclays", category: "Fintech", region: "Global" },
+    { id: 46, name: "BNY Mellon", category: "Fintech", region: "Global" },
+    { id: 47, name: "American Express", category: "Fintech", region: "Global" },
+    { id: 48, name: "Wells Fargo", category: "Fintech", region: "Global" },
+    { id: 49, name: "Razorpay", category: "Fintech", region: "India" },
+    { id: 50, name: "PhonePe", category: "Fintech", region: "India" },
+    { id: 51, name: "CRED", category: "Fintech", region: "India" },
+    { id: 52, name: "Groww", category: "Fintech", region: "India" },
+    { id: 53, name: "Zerodha", category: "Fintech", region: "India" },
+    { id: 54, name: "Navi", category: "Fintech", region: "India" },
+
+    // Data Analytics & Consulting
+    { id: 55, name: "LatentView Analytics", category: "Services", region: "India" },
+    { id: 56, name: "Fractal Analytics", category: "Services", region: "India" },
+    { id: 57, name: "Mu Sigma", category: "Services", region: "India" },
+    { id: 58, name: "ZS Associates", category: "Services", region: "Global" },
+    { id: 59, name: "Tiger Analytics", category: "Services", region: "India" },
+    { id: 60, name: "McKinsey & Co.", category: "Services", region: "Global" },
+    { id: 61, name: "BCG", category: "Services", region: "Global" },
+    { id: 62, name: "Bain & Co.", category: "Services", region: "Global" },
+    { id: 63, name: "PwC", category: "Services", region: "Global" },
+    { id: 64, name: "Deloitte", category: "Services", region: "Global" },
+    { id: 65, name: "EY", category: "Services", region: "Global" },
+    { id: 66, name: "KPMG", category: "Services", region: "Global" }
+  ];
 
   // 2. Auth Logic
   onAuthStateChanged(auth, (user) => {
