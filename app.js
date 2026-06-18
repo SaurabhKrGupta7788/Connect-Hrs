@@ -146,7 +146,24 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 84, name: "CityMall", category: "Big Tech", region: "India" },
     { id: 85, name: "Bloomberg", category: "Big Tech", region: "Global" },
     { id: 86, name: "MathWorks", category: "Big Tech", region: "Global" },
-    { id: 87, name: "Cvent", category: "Big Tech", region: "India" }
+    { id: 87, name: "Cvent", category: "Big Tech", region: "India" },
+    
+    // Batch 3: Additional Services, FMCG & Auto
+    { id: 88, name: "Capgemini", category: "Services", region: "Global" },
+    { id: 89, name: "Tata Motors", category: "Services", region: "India" },
+    { id: 90, name: "Nestle", category: "Services", region: "Global" },
+    { id: 91, name: "Unilever", category: "Services", region: "Global" },
+    { id: 92, name: "Accenture", category: "Services", region: "Global" },
+    { id: 93, name: "Mphasis", category: "Services", region: "Global" },
+    { id: 94, name: "Cognifyz Technologies", category: "Services", region: "India" },
+    { id: 95, name: "Infosys", category: "Services", region: "India" },
+    { id: 96, name: "Myntra", category: "Big Tech", region: "India" },
+    { id: 97, name: "HCLTech", category: "Services", region: "India" },
+    { id: 98, name: "Amazon Web Services (AWS)", category: "Big Tech", region: "Global" },
+    { id: 99, name: "Blinkit", category: "Big Tech", region: "India" },
+    { id: 100, name: "IBM", category: "Big Tech", region: "Global" },
+    { id: 101, name: "Tech Mahindra", category: "Services", region: "India" },
+    { id: 102, name: "Tata Technologies", category: "Services", region: "India" }
   ];
 
   // 2. Auth Logic
