@@ -123,7 +123,30 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 63, name: "PwC", category: "Services", region: "Global" },
     { id: 64, name: "Deloitte", category: "Services", region: "Global" },
     { id: 65, name: "EY", category: "Services", region: "Global" },
-    { id: 66, name: "KPMG", category: "Services", region: "Global" }
+    { id: 66, name: "KPMG", category: "Services", region: "Global" },
+    { id: 67, name: "WWT", category: "Services", region: "Global" },
+    { id: 68, name: "Accenture Japan", category: "Services", region: "Global" },
+    { id: 69, name: "FN MathLogic", category: "Services", region: "India" },
+
+    // Additional User Requested & Related
+    { id: 70, name: "Samsung", category: "Big Tech", region: "Global" },
+    { id: 71, name: "Warner Bros", category: "Big Tech", region: "Global" },
+    { id: 72, name: "Disney", category: "Big Tech", region: "Global" },
+    { id: 73, name: "Oracle", category: "Big Tech", region: "Global" },
+    { id: 74, name: "Unify", category: "Big Tech", region: "Global" },
+    { id: 75, name: "Zinnia", category: "Big Tech", region: "Global" },
+    { id: 76, name: "APPSIAN", category: "Big Tech", region: "Global" },
+    { id: 77, name: "Milk (Tech Japan)", category: "Big Tech", region: "Global" },
+    { id: 78, name: "Insurity", category: "Fintech", region: "Global" },
+    { id: 79, name: "Deutsche Bank", category: "Fintech", region: "Global" },
+    { id: 80, name: "Squarepoint Capital", category: "Quant", region: "Global" },
+    { id: 81, name: "PayU", category: "Fintech", region: "India" },
+    { id: 82, name: "Snapmint", category: "Fintech", region: "India" },
+    { id: 83, name: "Inito", category: "Big Tech", region: "India" },
+    { id: 84, name: "CityMall", category: "Big Tech", region: "India" },
+    { id: 85, name: "Bloomberg", category: "Big Tech", region: "Global" },
+    { id: 86, name: "MathWorks", category: "Big Tech", region: "Global" },
+    { id: 87, name: "Cvent", category: "Big Tech", region: "India" }
   ];
 
   // 2. Auth Logic
