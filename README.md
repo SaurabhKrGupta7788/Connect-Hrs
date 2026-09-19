@@ -1,86 +1,90 @@
-﻿# Connect-Hrs: Placement Outreach Tracker
+# Connect-Hrs: Serverless Placement Outreach CRM
 
-A web-based CRM and placement outreach tracking system designed to streamline contact management for university placement cells (e.g., NIT Mizoram). The application provides Google Authentication, a directory of target companies filterable by region and category, and a CRM form to track outreach statuses and interaction notes.
+A lightning-fast, serverless CRM and outreach tracking dashboard designed specifically for placement cells and HR professionals. Built using Vanilla JavaScript, HTML, and CSS, it leverages Firebase Authentication for secure access control without the overhead of a traditional backend.
 
 ## Architecture Overview
 
-\\\
-Web Browser (Client)
+```text
+Client Web Browser
     │
     ▼
 ┌──────────────────────────┐
-│  Firebase Auth (Google)  │  ← Secure Login / Session Management
+│  Vanilla JS Frontend     │  ← Handles DOM Manipulation & State
 └──────────┬───────────────┘
            │
-           ▼
-┌──────────────────────────┐
-│  DOM & Event Handling    │  ← Vanilla JavaScript (app.js)
-└──────────┬───────────────┘
-           │
-    ┌──────┴──────┐
-    ▼             ▼
-┌────────┐  ┌──────────┐
-│Company │  │ CRM Form │
-│Filter  │  │ Tracker  │
-└───┬────┘  └────┬─────┘
-    │            │
-    ▼            ▼
-┌──────────────────────────┐
-│  Local Storage / DB      │  ← Outreach contacts & notes saving
-└──────────────┬───────────┘
+    ┌──────┼───────────────┐
+    ▼      ▼               ▼
+┌───────┐ ┌─────────────┐ ┌─────────────┐
+│ Auth  │ │ Dashboard   │ │ Outreach    │
+│ Panel │ │ Statistics  │ │ Logging     │
+└───┬───┘ └──────┬──────┘ └──────┬──────┘
+    │            │               │
+    ▼            ▼               ▼
+┌───────────────────────────────────────┐
+│  Firebase SDK (Client-Side)           │
+└──────────────┬────────────────────────┘
+               │ (HTTPS/JSON)
                ▼
-        Activity Timeline
-   (Contact, Status, Notes, Date)
-\\\
+┌───────────────────────────────────────┐
+│  Google Firebase Cloud (Backend)      │
+│  - Authentication (Email/Password)    │
+│  - Firestore (NoSQL Database)*        │
+└───────────────────────────────────────┘
+* If configured for data persistence.
+```
 
 ## System Output
 
-The system allows users to view and export the outreach tracking list. 
-Example of CRM records generated and exportable to CSV:
+The system manages the state of various HR and company outreach activities:
 
-| Company | Contact Name | Status | Email / LinkedIn | Interaction Notes |
-|---|---|---|---|---|
-| Optiver | John Doe | Emailed | john@optiver.com | Sent connection request on Monday. |
-| Google | Jane Smith | Meeting Scheduled | jane.s@google.com | Initial screening call planned. |
+| Company Name | HR Contact | Outreach Status | Follow-up Date |
+|---|---|---|---|
+| Google India | Jane Doe | Responded (Positive) | 2026-10-15 |
+| Microsoft | John Smith | Awaiting Reply | N/A |
 
 ## Directory Structure
 
-\\\
-├── index.html                  # Main application UI and structure
-├── style.css                   # Custom CSS styling (Inter font, responsive layout)
-├── app.js                      # Application logic, Firebase integration, and CRM state management
-└── README.md                   # Project documentation
-\\\
+```text
+Connect-Hrs/
+├── index.html            # Main entry point and Dashboard UI
+├── login.html            # Firebase Authentication UI
+├── auth.js               # Firebase initialization and auth state listeners
+├── app.js                # Core CRM logic and DOM event handlers
+├── style.css             # Vanilla CSS styling
+└── README.md             # Project documentation
+```
 
 ## How to Run
 
 ### 1. Prerequisites
 - A modern web browser.
-- A local web server (like Live Server or Python HTTP server) to run the site (Firebase Auth requires http://localhost or https).
+- A Firebase Project (for Authentication).
 
-### 2. Install Dependencies
-No 
-pm packages or heavy frameworks are required. The project uses standard HTML/CSS/JS with Firebase loaded via CDN.
+### 2. Configuration
+1. Open `auth.js`.
+2. Replace the placeholder Firebase configuration object with your actual Firebase project credentials:
+```javascript
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+```
 
 ### 3. Run the Application
-
-Using Python:
-\\\ash
-# Start a local web server
-python -m http.server 8000
-\\\
-*Alternatively, use the "Live Server" extension in VS Code.*
+Because this is a serverless, client-side application, no build tools or servers are required.
+1. Simply open `login.html` directly in your web browser.
+2. Alternatively, serve it using a lightweight local server (e.g., `python -m http.server 8000` or VS Code Live Server).
 
 ### 4. Usage
-1. Open the application URL (e.g., http://localhost:8000).
-2. Click **Sign in with Google** to authenticate.
-3. Browse the **Target Companies** directory and filter by *Region* (India, Global) or *Category* (Quant, Big Tech, Services, Fintech).
-4. Use the **CRM Outreach Tracker** to log new contacts, specify their status (To Contact, Emailed, Meeting Scheduled), and save notes.
-5. Click **Export to CSV** to download the CRM data.
+1. **Authentication**: Use the login page to authenticate via Firebase. Unauthenticated users are strictly redirected away from `index.html`.
+2. **Dashboard**: Once logged in, use the dashboard to log new company outreach attempts, update statuses, and track follow-ups.
 
 ## Key Design Decisions
 
-1. **Serverless Architecture**: By leveraging Firebase for Authentication and frontend technologies for the UI, the application runs entirely in the browser without requiring a dedicated backend server.
-2. **Vanilla JavaScript**: Chosen for simplicity, fast execution, and avoiding the overhead of heavy frameworks like React or Angular for a straightforward CRM tool.
-3. **Data Export Capability**: Added a CSV export feature ensuring that the placement team can port data easily to Excel or other university management software.
-4. **Responsive Layout**: CSS variables and flexible box models ensure the UI works consistently across desktop and mobile devices.
+1. **Serverless Architecture**: By relying entirely on Firebase Authentication and client-side JavaScript, the application achieves zero server maintenance costs and instant deployment via GitHub Pages or Vercel.
+2. **Vanilla JS over Frameworks**: For a lightweight CRM, avoiding heavy frameworks like React or Angular drastically reduces initial load times and eliminates the need for complex build pipelines (Webpack/Vite).
+3. **Strict Route Guarding**: The `auth.js` script enforces an authentication observer (`onAuthStateChanged`). If a user attempts to access `index.html` without a valid Firebase token, the DOM is hidden and the user is instantly redirected to `login.html`.
